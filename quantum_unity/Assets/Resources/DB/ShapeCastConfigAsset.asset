@@ -20,6 +20,6 @@ MonoBehaviour:
     AttackLayers:
       BitMask: 64
     Radius:
-      RawValue: 65536
+      RawValue: 33423
     Distance:
-      RawValue: 533463
+      RawValue: -431882

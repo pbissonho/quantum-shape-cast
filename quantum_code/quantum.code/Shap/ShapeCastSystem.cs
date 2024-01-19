@@ -26,23 +26,29 @@ namespace Quantum
 
             //if (RaycasthHit.HasValue)
             //{
-            //    Draw.Line(position, RaycasthHit.Value.Point, color: ColorRGBA.Blue);
+            //  Draw.Line(position, RaycasthHit.Value.Point, color: ColorRGBA.Blue);
             //}
 
             //ShapeCast - Not Work - Am I missing something?
-            var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, FPVector3.Up * config.Distance, layerMask: config.AttackLayers, QueryOptions.HitAll);
+            var hits = f.Physics3D.ShapeCastAll(position, FPQuaternion.Identity, &shape, FPVector3.Up * config.Distance, layerMask: config.AttackLayers, QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
+
+
+            //var hits.SortCastDistance()
 
             for (int i = 0; i < hits.Count; i++)
             {
-                var hit = hits[i];
+                var hit = hits.HitsBuffer[i];
               
                 Log.Debug("Point:" + hit.Point);
                 Log.Debug("Name: " + hit.Entity);
 
-                Draw.Sphere(hit.Point, FP._0_05, color: ColorRGBA.Red);
+                //Draw.Sphere(hit.Point, FP._0_05, color: ColorRGBA.Red);
                 Draw.Line(position, hit.Point, color: ColorRGBA.Blue);
             }
-            
+
+
+            Log.Debug("Count:" + hits.Count);
+
             Draw.Sphere(position + FPVector3.Up * config.Distance, config.Radius);
         }
     }
